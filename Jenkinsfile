@@ -6,6 +6,7 @@ pipeline {
         always { 
             deleteDir()
         }
+		}
         stage('Build') {
             steps {
                 echo 'Building..'
