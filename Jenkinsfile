@@ -1,9 +1,10 @@
 pipeline {
     agent any
-		post { 
+    post { 
         always { 
             deleteDir()
-        }
+        	}
+    }
     stages {
         stage('Build') {
             steps {
