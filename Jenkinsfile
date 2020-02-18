@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     stages {
-		stage('Cleanup') {
-		deleteDir()
-		}
+		post { 
+        always { 
+            deleteDir()
+        }
         stage('Build') {
             steps {
                 echo 'Building..'
