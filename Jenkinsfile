@@ -12,7 +12,7 @@ pipeline {
                     echo 'Building..'
 		    sh("git tag v0.1")
 		    sh("git branch v0.2-rc1")
-		    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Kimverd/jenkins/ v0.2-rc1")
+		    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Kimverd/jenkins.git v0.2-rc1")
 		}
 	    }
         }
