@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    triggers {pullSCM('* * * * *') }
+    triggers { pullSCM('* * * * *') }
     post { 
         always { 
             deleteDir()
