@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
               	withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-		    sh("tag_version=`git ls-remote --tags https://github.com/Kimverd/jenkins.git | awk -F '/' '{ print $3}'`)
+		    tag_version=`git ls-remote --tags https://github.com/Kimverd/jenkins.git | awk -F '/' '{ print $3}'`
 		    sh("dst_dir=/var/www/site/$tag_version)
 		    sh("mkdir -p /var/www/site/$tag_version)
 		    sh("git clone https://github.com/Kimverd/jenkins $dst_dir)
