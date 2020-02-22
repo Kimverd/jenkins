@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    triggers { pollSCM('* * * * *') }
+	triggers {pullSCM('* * * * *') }
     post { 
         always { 
             deleteDir()
@@ -9,13 +9,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) { 
-                    echo 'Building..'
-		    sh("git tag v0.1")
-		    sh("git branch v0.2-rc1")
-		    sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Kimverd/jenkins.git v0.2-rc1")
+              	withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+		    sh("tag_version=`git ls-remote --tags https://github.com/Kimverd/jenkins.git | awk -F '/' '{ print $3}'`)
+		    sh("dst_dir=/var/www/site/$tag_version)
+		    sh("mkdir -p /var/www/site/$tag_version)
+		    sh("git clone https://github.com/Kimverd/jenkins $dst_dir)
+		    sh("ln -sfn $dst_dir /etc/nginx/latest)
 		}
-	    }
+            }
         }
     }
 }
