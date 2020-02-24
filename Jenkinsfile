@@ -2,7 +2,7 @@ pipeline {
     agent {
 	label 'node'
     }    
-	triggers {pollSCM('* * * * *') }
+    triggers {pollSCM('* * * * *') }
     post { 
         always { 
             deleteDir()
@@ -11,23 +11,19 @@ pipeline {
     stages {
         stage('Prepair') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-			sh label: '', script: '''
-			dst_dir="/var/www/release/node-`date +%Y-%m-%d-%H-%M`"
-			git clone https://github.com/nodejs/nodejs.org $dst_dir
-			cd $dst_dir
-			npm install
-			npm run build
-			chown -R nginx: $dst_dir
-			ln -sfn $dst_dir/build /etc/nginx/latest
-			'''
-		}
+		sh 'git clone https://github.com/nodejs/nodejs.org'
 	    }
-	    post {
-        	always {
-            		archiveArtifacts artifacts: 'build/'
-        	}
-    	    }
+	}
+        stage('Prepair') {
+            steps {
+		sh 'npm install'
+		sh 'npm run build'
+	    }
+	}
+	post {
+	    always {
+            	archiveArtifacts artifacts: 'build/'
+	    }
 	}
     }
 }
