@@ -17,6 +17,7 @@ pipeline {
 			git clone https://github.com/nodejs/nodejs.org $dst_dir
 			cd $dst_dir
 			npm install
+			npm run build
 			chown -R nginx: $dst_dir
 			ln -sfn $dst_dir/build /etc/nginx/latest
 			'''
