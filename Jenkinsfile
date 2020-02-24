@@ -1,3 +1,4 @@
+dst_dir="/var/www/release/node-`date +%Y-%m-%d-%H-%M`"
 pipeline {
     agent any
 	triggers {pollSCM('* * * * *') }
@@ -11,7 +12,6 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 			sh label: '', script: '''
-			dst_dir="/var/www/release/node-`date +%Y-%m-%d-%H-%M`"
 			git clone https://github.com/nodejs/nodejs.org $dst_dir
 			'''
 		}
