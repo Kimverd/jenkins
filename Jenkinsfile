@@ -11,7 +11,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 			sh label: '', script: '''
-			dst_dir="/var/www/release/node-`date +%d-%m-%Y-%k-%M`"
+			dst_dir="/var/www/release/node-`date +%Y-%m-%d-%k-%M`"
 			git clone https://github.com/nodejs/nodejs.org $dst_dir
 			'''
 		}
