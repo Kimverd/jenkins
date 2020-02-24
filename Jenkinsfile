@@ -2,7 +2,7 @@ pipeline {
     agent {
 	label 'node'
     }    
-    tools {nodejs "node"}
+    tools {nodejs "nodejs"}
     triggers {pollSCM('* * * * *') }
     post { 
         always { 
