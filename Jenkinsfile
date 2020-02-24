@@ -19,11 +19,11 @@ pipeline {
 		sh 'npm install'
 		sh 'npm run build'
 	    }
+	    post {
+        	success {
+            	    archiveArtifacts artifacts: 'build/'
+        	}
+    	    }
 	}
-    }
-    post {
-        success {
-            archiveArtifacts artifacts: 'build/'
-        }
     }
 }
