@@ -12,15 +12,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 			sh label: '', script: '''
+			dst_dir="/var/www/release/node-`date +%Y-%m-%d-%H-%M`"
 			git clone https://github.com/nodejs/nodejs.org $dst_dir
-			'''
-		}
-	    }
-	}
-	stage('Build') {
-	    steps {
-		withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-			sh label: '', script: '''
 			cd $dst_dir
 			npm install
 			chown -R nginx: $dst_dir
