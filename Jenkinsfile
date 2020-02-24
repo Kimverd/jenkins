@@ -14,7 +14,7 @@ pipeline {
 		sh 'git clone https://github.com/nodejs/nodejs.org'
 	    }
 	}
-        stage('Prepair') {
+        stage('Build') {
             steps {
 		sh 'npm install'
 		sh 'npm run build'
