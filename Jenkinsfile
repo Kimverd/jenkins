@@ -7,16 +7,27 @@ pipeline {
         }
     }
     stages {
-        stage('Build') {
+        stage('Prepair') {
             steps {
-              	withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-		    sh label: '', script: '''tag_version=`git ls-remote --tags https://github.com/Kimverd/jenkins.git | tail -1 | awk -F \'/\' \'{ print $3}\'`
-		    dst_dir=/var/www/site/$tag_version
-		    mkdir -p $dst_dir
-		    git clone https://github.com/Kimverd/jenkins $dst_dir
-		    ln -sfn $dst_dir /etc/nginx/latest'''
-		}
-            }
-        }
-    }
+                withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+		    step {
+		    	sh label: '', script: '''
+		    	dst_dir="/var/www/release/node-`date +%d-%m-%Y-%k-%M`"
+		    	git clone https://github.com/nodejs/nodejs.org $dst_dir
+		    	'''
+	            }
+ 	stage('Build') {
+	    steps {
+		withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+		    step {
+			sh label: '', script: '''
+		        cd $dst_dir
+		        npm install
+		        chown -R nginx: $dst_dir
+		        ln -sfn $dst_dir/build /etc/nginx/latest
+			'''
+            	    }
+             	}
+    	    }
+	}
 }
