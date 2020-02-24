@@ -9,7 +9,7 @@ pipeline {
         }
     }
     environment {
-	dst_dir = "${sh(/var/www/release/node-`date +%Y-%m-%d-%H-%M`)}"
+	dst_dir = "${sh(script:/var/www/release/node-`date +%Y-%m-%d-%H-%M`)}"
     }
     stages {
         stage('Prepair') {
