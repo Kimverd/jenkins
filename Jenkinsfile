@@ -1,5 +1,7 @@
 pipeline {
-    agent Slave
+    agent {
+	label 'node'
+    }    
 	triggers {pollSCM('* * * * *') }
     post { 
         always { 
