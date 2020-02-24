@@ -16,7 +16,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 			sh label: '', script: '''
-			git clone https://github.com/nodejs/nodejs.org $dst_dir
+			git clone https://github.com/nodejs/nodejs.org ${env.dst_dir}
 			'''
 		}
 	    }
@@ -25,10 +25,10 @@ pipeline {
 	    steps {
 		withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 			sh label: '', script: '''
-			cd $dst_dir
+			cd ${env.dst_dir}
 			npm install
 			npm run build
-			chown -R nginx: $dst_dir
+			chown -R nginx: ${env.dst_dir}
 			ln -sfn $dst_dir/build /etc/nginx/latest
 			'''
 		}
