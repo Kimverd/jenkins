@@ -4,11 +4,6 @@ pipeline {
     }    
     tools {nodejs "nodejs"}
     triggers {pollSCM('* * * * *') }
-    post { 
-        always { 
-            deleteDir()
-        }
-    }
     stages {
         stage('Prepair') {
             steps {
