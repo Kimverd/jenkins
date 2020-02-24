@@ -33,11 +33,11 @@ pipeline {
 			'''
 		}
 	    }
+	    post {
+        	always {
+            		archiveArtifacts artifacts: 'build/'
+        	}
+    	    }
 	}
-    }
-    post {
-        always {
-            archiveArtifacts artifacts: 'build/'
-        }
     }
 }
