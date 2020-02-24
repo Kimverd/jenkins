@@ -20,10 +20,10 @@ pipeline {
 		sh 'npm run build'
 	    }
 	}
-	post {
-	    always {
-            	archiveArtifacts artifacts: 'build/'
-	    }
-	}
+    }
+    post {
+        always {
+               	archiveArtifacts artifacts: 'build/'
+        }
     }
 }
