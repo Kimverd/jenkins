@@ -16,6 +16,7 @@ pipeline {
 	}
         stage('Build') {
             steps {
+		sh 'cd nodejs.org'
 		sh 'npm install'
 		sh 'npm run build'
 	    }
