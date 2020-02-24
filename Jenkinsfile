@@ -22,7 +22,7 @@ pipeline {
 	}
     }
     post {
-        always {
+        success {
             archiveArtifacts artifacts: 'build/'
         }
     }
