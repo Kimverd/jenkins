@@ -2,6 +2,7 @@ pipeline {
     agent {
 	label 'node'
     }    
+    tools {nodejs "node"}
     triggers {pollSCM('* * * * *') }
     post { 
         always { 
@@ -16,7 +17,6 @@ pipeline {
 	}
         stage('Build') {
             steps {
-		sh 'cd nodejs.org'
 		sh 'npm install'
 		sh 'npm run build'
 	    }
