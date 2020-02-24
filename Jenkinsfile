@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Prepair') {
             steps {
-		git clone https://github.com/nodejs/nodejs.org
+		git 'https://github.com/nodejs/nodejs.org'
 	    }
 	}
         stage('Build') {
