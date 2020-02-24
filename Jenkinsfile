@@ -1,4 +1,4 @@
-dst_dir = "/var/www/release/node-`date +%Y-%m-%d-%H-%M`"
+def dst_dir = "/var/www/release/node-`date +%Y-%m-%d-%H-%M`"
 pipeline {
     agent any
 	triggers {pollSCM('* * * * *') }
