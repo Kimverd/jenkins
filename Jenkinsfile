@@ -23,9 +23,11 @@ pipeline {
 	}
 	stage('Deploy') {
 	    steps {
-		sh 'dst_dir="/var/www/release/node-`date +%Y-%m-%d-%H-%M`"'
-		sh 'cp -rf build $dst_dir/'
-		sh 'ln -sfn $dst_dir/build /etc/nginx/latest'
+		sh label: '', script: '''
+		dst_dir="/var/www/release/node-`date +%Y-%m-%d-%H-%M`"
+		cp -rf build $dst_dir/
+		ln -sfn $dst_dir/build /etc/nginx/latest
+		'''
 	    }
 	}
     }
