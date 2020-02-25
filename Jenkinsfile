@@ -26,7 +26,7 @@ pipeline {
 		sh label: '', script: '''
 		dst_dir="/var/www/release/node-`date +%Y-%m-%d-%H-%M`"
 		cp -rf build $dst_dir/
-		ln -sfn $dst_dir/build /etc/nginx/latest
+		ln -sfn $dst_dir /etc/nginx/latest
 		'''
 	    }
 	}
