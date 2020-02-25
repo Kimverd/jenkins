@@ -25,7 +25,7 @@ pipeline {
 	    steps {
 		sh 'dst_dir="/var/www/release/node-`date +%Y-%m-%d-%H-%M`"'
 		copyArtifacts filter: 'build', fingerprintArtifacts: true, projectName: '${JOB_NAME}', selector: specific('${BUILD_NUMBER}')
-		unzip zipFile: 'build', dir: '$dst_dir'
+		unzip zipFile: 'archive.zip', dir: '$dst_dir'
 	    }
 	}
     }
