@@ -24,8 +24,8 @@ pipeline {
 	stage('Deploy') {
 	    steps {
 		sh 'dst_dir="/var/www/release/node-`date +%Y-%m-%d-%H-%M`"'
-		copyArtifacts filter: 'archive.zip', fingerprintArtifacts: true, projectName: '${JOB_NAME}', selector: specific('${BUILD_NUMBER}')
-		unzip zipFile: 'archive.zip', dir: '$dst_dir'
+		sh 'cp -rf build $dst_dir/'
+		sh 'ln -sfn $dst_dir/build /etc/nginx/latest'
 	    }
 	}
     }
